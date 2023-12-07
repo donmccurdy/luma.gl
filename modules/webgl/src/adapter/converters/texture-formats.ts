@@ -169,7 +169,8 @@ export const TEXTURE_FORMATS: Record<TextureFormat, Format> = {
   'rgb8snorm-webgl': {gl: GL.RGB8_SNORM, b: 3, c: 3, wgpu: false},
 
   // 32-bit formats  
-  'rgba8unorm': {gl: GL.RGBA8, gl1: GL.RGBA, b: 4, c: 2, bpp: 4},
+  'rgba8unorm': {gl: GL.RGBA8, gl1: GL.RGBA, b: 4, c: 2, bpp: 4,
+    dataFormat: GL.RGBA, types: [GL.UNSIGNED_BYTE]},
   'rgba8unorm-srgb': {gl: GL.SRGB8_ALPHA8, gl1: GL.SRGB_ALPHA_EXT, b: 4, c: 4, gl1ext: EXT_SRGB, bpp: 4},
   'rgba8snorm': {gl: GL.RGBA8_SNORM, b: 4, c: 4},
   'rgba8uint': {gl: GL.RGBA8UI, b: 4, c: 4, bpp: 4},
@@ -187,7 +188,8 @@ export const TEXTURE_FORMATS: Record<TextureFormat, Format> = {
 
   'r32uint': {gl: GL.R32UI, b: 4, c: 1, bpp: 4, renderbuffer: true},
   'r32sint': {gl: GL.R32I, b: 4, c: 1, bpp: 4, renderbuffer: true},
-  'r32float': {gl: GL.R32F, bpp: 4, b: 4, c: 1, render: 'texture-renderable-float32-webgl', filter: 'texture-filter-linear-float32-webgl'},
+  'r32float': {gl: GL.R32F, bpp: 4, b: 4, c: 1, render: 'texture-renderable-float32-webgl', filter: 'texture-filter-linear-float32-webgl',
+    dataFormat: GL.RED, types: [GL.FLOAT]},
 
   // Packed 32-bit formats
   'rgb9e5ufloat': {gl: GL.RGB9_E5, b: 4, c: 3, p: 1, render: 'texture-renderable-float16-webgl', filter: 'texture-filter-linear-float16-webgl'},
@@ -203,7 +205,8 @@ export const TEXTURE_FORMATS: Record<TextureFormat, Format> = {
   // 64-bit formats
   'rg32uint': {gl: GL.RG32UI, b: 8, c: 2, renderbuffer: true},
   'rg32sint': {gl: GL.RG32I, b: 8, c: 2, renderbuffer: true},
-  'rg32float': {gl: GL.RG32F, b: 8, c: 2, render: 'texture-renderable-float32-webgl', filter: 'texture-filter-linear-float32-webgl', renderbuffer: true},
+  'rg32float': {gl: GL.RG32F, b: 8, c: 2, render: 'texture-renderable-float32-webgl', filter: 'texture-filter-linear-float32-webgl', renderbuffer: true,
+    dataFormat: GL.RG, types: [GL.FLOAT]},
   'rgba16uint': {gl: GL.RGBA16UI, b: 8, c: 4, renderbuffer: true},
   'rgba16sint': {gl: GL.RGBA16I, b: 8, c: 4, renderbuffer: true},
   'rgba16float': {gl: GL.RGBA16F, gl1: GL.RGBA, b: 8, c: 4, render: 'texture-renderable-float16-webgl', filter: 'texture-filter-linear-float16-webgl'},
@@ -218,7 +221,8 @@ export const TEXTURE_FORMATS: Record<TextureFormat, Format> = {
   // 128-bit formats
   'rgba32uint': {gl: GL.RGBA32UI, b: 16, c: 4, renderbuffer: true},
   'rgba32sint': {gl: GL.RGBA32I, b: 16, c: 4, renderbuffer: true},
-  'rgba32float': {gl: GL.RGBA32F, b: 16, c: 4, render: 'texture-renderable-float32-webgl', filter: 'texture-filter-linear-float32-webgl', renderbuffer: true},
+  'rgba32float': {gl: GL.RGBA32F, b: 16, c: 4, render: 'texture-renderable-float32-webgl', filter: 'texture-filter-linear-float32-webgl', renderbuffer: true,
+    dataFormat: GL.RGBA, types: [GL.FLOAT]},
 
   // Depth and stencil formats
   'stencil8': {gl: GL.STENCIL_INDEX8, gl1: GL.STENCIL_INDEX8, b: 1, c: 1, attachment: GL.STENCIL_ATTACHMENT, renderbuffer: true}, // 8 stencil bits

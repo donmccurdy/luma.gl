@@ -11,7 +11,8 @@ import {
   CommandBuffer,
   Texture,
   // Buffer,
-  Framebuffer
+  Framebuffer,
+  assert
 } from '@luma.gl/core';
 import {GL} from '@luma.gl/constants';
 
@@ -20,6 +21,7 @@ import {WebGLDevice} from '../webgl-device';
 import {WEBGLBuffer} from './webgl-buffer';
 import {WEBGLTexture} from './webgl-texture';
 import {WEBGLFramebuffer} from './webgl-framebuffer';
+import { TEXTURE_FORMATS } from '../converters/texture-formats';
 
 function cast<T>(value: unknown): T {
   return value as T;
@@ -158,7 +160,7 @@ function _copyTextureToBuffer(device: WebGLDevice, options: CopyTextureToBufferO
   }
 
   // TODO - mipLevels are set when attaching texture to framebuffer
-  if (mipLevel !== 0 || depthOrArrayLayers !== undefined || bytesPerRow || rowsPerImage) {
+  if (mipLevel !== 0 || depthOrArrayLayers !== 0 || bytesPerRow || rowsPerImage) {
     throw new Error('not implemented');
   }
 
@@ -171,9 +173,12 @@ function _copyTextureToBuffer(device: WebGLDevice, options: CopyTextureToBufferO
     const sourceWidth = width || framebuffer.width;
     const sourceHeight = height || framebuffer.height;
 
-    // TODO - hack - should be deduced
-    const sourceFormat = GL.RGBA;
-    const sourceType = GL.UNSIGNED_BYTE;
+    const format = TEXTURE_FORMATS[framebuffer.texture.format];
+    assert(format.dataFormat, `Unsupported format, "${framebuffer.texture.format}"`);
+    assert(format.types, `Unsupported format, "${framebuffer.texture.format}"`);
+
+    const sourceFormat = format.dataFormat;
+    const sourceType = format.types[0];
 
     // if (!target) {
     //   // Create new buffer with enough size
